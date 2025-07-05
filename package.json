@@ -1,0 +1,23 @@
+{
+    "name": "forkify",
+    "version": "1.0.0",
+    "description": "Recepi aplication",
+    "homepage": "https://github.com/marcelohlp/forkify#readme",
+    "bugs": {
+        "url": "https://github.com/marcelohlp/forkify/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/marcelohlp/forkify.git"
+    },
+    "license": "ISC",
+    "author": "Marcelo Paschoal",
+    "type": "commonjs",
+    "scripts": {
+        "start": "parcel index.html",
+        "build": "parcel build index.html"
+    },
+    "devDependencies": {
+        "parcel": "^2.15.4"
+    }
+}
