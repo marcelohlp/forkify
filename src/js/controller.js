@@ -4,14 +4,9 @@ import recipeView from "./views/recipeView.js";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
-const recipeContainer = document.querySelector(".recipe");
-
-// NEW API URL (instead of the one shown in the video)
-// https://forkify-api.jonas.io
-
-///////////////////////////////////////
-
-/**/
+function init() {
+    recipeView.addHandlerRender(controlRecipes);
+}
 
 async function controlRecipes() {
     try {
@@ -24,11 +19,8 @@ async function controlRecipes() {
 
         recipeView.render(model.state.recipe);
     } catch (error) {
-        console.log(error);
-        alert(error);
+        console.error(error);
     }
 }
 
-// showRecipe("5ed6604591c37cdc054bc886");
-
-["hashchange", "load"].forEach((event) => window.addEventListener(event, controlRecipes));
+init();
