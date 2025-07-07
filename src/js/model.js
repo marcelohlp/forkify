@@ -4,11 +4,15 @@ import { getJSON } from "./helpers.js";
 
 export const state = {
     recipe: {},
+    search: {
+        query: "",
+        results: [],
+    },
 };
 
 export async function loadRecipe(id) {
     try {
-        const data = await getJSON(`${API_URL}/${id}`);
+        const data = await getJSON(`${API_URL}${id}`);
 
         const { recipe } = data.data;
         state.recipe = {
@@ -22,6 +26,26 @@ export async function loadRecipe(id) {
             title: recipe.title,
         };
     } catch (error) {
-        console.error(error);
+        throw error;
+    }
+}
+
+export async function loadSearchResults(query) {
+    try {
+        state.search.query = query;
+
+        const data = await getJSON(`${API_URL}?search=${query}`);
+
+        const { recipes } = data.data;
+        state.search.results = recipes.map((recipe) => {
+            return {
+                id: recipe.id,
+                title: recipe.title,
+                publisher: recipe.publisher,
+                imageUrl: recipe.image_url,
+            };
+        });
+    } catch (error) {
+        throw error;
     }
 }
