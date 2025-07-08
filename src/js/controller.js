@@ -13,6 +13,7 @@ if (module.hot) {
 
 function init() {
     recipeView.addHandlerRender(controlRecipes);
+    recipeView.addHandlerUpdateServings(controlServings);
     searchView.addHandlerSearch(controlSearchResults);
     paginationView.addHandlerClickButton(controlPagination);
 }
@@ -51,6 +52,11 @@ async function controlSearchResults() {
 function controlPagination(goToPage) {
     resultsView.render(model.getSearchResultsPage(goToPage));
     paginationView.render(model.state.search);
+}
+
+function controlServings(newServings) {
+    model.updateServings(newServings);
+    recipeView.update(model.state.recipe);
 }
 
 init();
