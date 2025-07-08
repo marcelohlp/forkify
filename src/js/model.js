@@ -14,6 +14,12 @@ export const state = {
     bookmarks: [],
 };
 
+function init() {
+    const storage = localStorage.getItem("bookmarks");
+
+    if (storage) state.bookmarks = JSON.parse(storage);
+}
+
 export async function loadRecipe(id) {
     try {
         const data = await getJSON(`${API_URL}${id}`);
@@ -75,10 +81,20 @@ export function updateServings(newServings = state.recipe.servings) {
 export function addBookmark(recipe) {
     state.bookmarks.push(recipe);
     if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+
+    persitBookmarks();
 }
 
 export function deleteBookmark(id) {
     const index = state.bookmarks.findIndex((element) => element.id === id);
     state.bookmarks.splice(index, 1);
     if (id === state.recipe.id) state.recipe.bookmarked = false;
+
+    persitBookmarks();
 }
+
+function persitBookmarks() {
+    localStorage.setItem("bookmarks", JSON.stringify(state.bookmarks));
+}
+
+init();

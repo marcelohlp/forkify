@@ -9,6 +9,7 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 
 function init() {
+    bookmarksView.addHandlerRender(controlBookmarks);
     recipeView.addHandlerRender(controlRecipes);
     recipeView.addHandlerUpdateServings(controlServings);
     recipeView.addHandlerAddBookmarks(controlAddBookmark);
@@ -58,6 +59,10 @@ function controlPagination(goToPage) {
 function controlServings(newServings) {
     model.updateServings(newServings);
     recipeView.update(model.state.recipe);
+}
+
+function controlBookmarks() {
+    bookmarksView.render(model.state.bookmarks);
 }
 
 function controlAddBookmark() {
